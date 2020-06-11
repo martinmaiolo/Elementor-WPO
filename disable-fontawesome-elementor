@@ -1,0 +1,5 @@
+add_action ('elementor/frontend/after_register_styles', function () {
+	foreach (['sólido', 'regular', 'marcas'] como $ style) {
+		wp_deregister_style ('elementor-icons-fa-'. $ style);
+	}
+}, 20);
