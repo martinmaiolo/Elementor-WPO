@@ -1,0 +1,29 @@
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+jQuery(function($){
+$(document).scroll(function() {
+var y = $(this).scrollTop();
+if (y > 300) { /* change this value here to make it show up at your desired scroll location. */
+$('#menuhopin').addClass('headershow');
+} else {
+$('#menuhopin').removeClass('headershow');
+}
+});});});
+</script>
+<style>
+.elementor-nav-menu__container{
+top:0px!important;
+}
+#menuhopin.headershow{
+transform: translateY(0);
+}
+#menuhopin{
+position: fixed;
+top:0;
+width: 100vw;
+-webkit-transition: transform 0.34s ease;
+transition : transform 0.34s ease;
+transform: translateY(-110px); /*adjust this value to the height of your header*/
+}
+</style>
