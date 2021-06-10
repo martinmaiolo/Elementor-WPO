@@ -1,0 +1,27 @@
+<script>
+jQuery(function($){
+$(document).on('click','.elementor-location-popup a', function(event){
+elementorProFrontend.modules.popup.closePopup( {}, event);
+});
+});
+</script>
+
+<script>
+jQuery(function($){
+$(document).on('yes.click','.elementor-location-popup a', function(event){
+elementorProFrontend.modules.popup.closePopup( {}, event);
+});
+});
+</script>
+
+
+
+Give your button the CSS class 'yesclick' , the use that code:
+
+<script>
+jQuery(function($){
+$('.yesclick').on('click','.elementor-location-popup a', function(event){
+elementorProFrontend.modules.popup.closePopup( {}, event);
+});
+});
+</script>
