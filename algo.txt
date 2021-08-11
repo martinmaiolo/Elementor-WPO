@@ -1,0 +1,78 @@
+function remove_google_fonts_stylesheet() {  
+if($_SERVER['REQUEST_URI'] == '/') {
+wp_dequeue_style('tutor-frontend');
+wp_dequeue_style('tutor-pro-front');
+wp_dequeue_style('tutor-plyr');
+wp_dequeue_style('tutor-icon');
+
+wp_dequeue_script('tutor-plyr');
+wp_dequeue_script('tutor-social-share');
+wp_dequeue_script('tutor-main');
+wp_dequeue_script('tutor-frontend');
+   wp_dequeue_script('tutor-frontend');
+
+}
+}
+add_action( 'wp_enqueue_scripts', 'remove_google_fonts_stylesheet', 999 );
+
+
+//* Adding DNS Prefetching
+function wp_dns_prefetch(){echo'<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//stats.wp.com" />';
+}
+add_action('wp_head', 'wp_dns_prefetch', 0);
+
+
+https://orbitingweb.com/blog/social-media-metadata-wordpress/
+
+https://orbitingweb.com/blog/tricks-to-speed-up-your-wordpress-blog/
+
+# Finding handle for your plugins
+function display_script_handles() {
+    global $wp_scripts;
+if(current_user_can('manage_options')){ # Only load when user is admin
+foreach( $wp_scripts->queue as $handle ) :
+         $obj = $wp_scripts->registered [$handle];
+         echo $filename = $obj->src;
+echo ' : <b>Handle for this script is:</b> <span style="color:green"> '.$handle.'</span><br/><br/>';
+endforeach;
+}
+}
+add_action( 'wp_print_scripts', 'display_script_handles' );
+
+<link rel="dns-prefetch" href="//miprimerclic.com" data-set-by="SG Optimizer"/>
+
+
+
+
+
+//Custom CSS Widget
+add_action('admin_menu', 'custom_css_hooks');
+add_action('save_post', 'save_custom_css');
+add_action('wp_head','insert_custom_css', 0);
+function custom_css_hooks() {
+add_meta_box('custom_css', 'Custom CSS', 'custom_css_input', 'post', 'normal', 'high');
+add_meta_box('custom_css', 'Custom CSS', 'custom_css_input', 'page', 'normal', 'high');
+}
+function custom_css_input() {
+global $post;
+echo '<input type="hidden" name="custom_css_noncename" id="custom_css_noncename" value="'.wp_create_nonce('custom-css').'" />';
+echo '<textarea name="custom_css" id="custom_css" rows="5" cols="30" style="width:100%;">'.get_post_meta($post->ID,'_custom_css',true).'</textarea>';
+}
+function save_custom_css($post_id) {
+if (!wp_verify_nonce($_POST['custom_css_noncename'], 'custom-css')) return $post_id;
+if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
+$custom_css = $_POST['custom_css'];
+update_post_meta($post_id, '_custom_css', $custom_css);
+}
+function insert_custom_css() {
+if (is_page() || is_single()) {
+if (have_posts()) : while (have_posts()) : the_post();
+echo '<style type="text/css">'.get_post_meta(get_the_ID(), '_custom_css', true).'</style>';
+endwhile; endif;
+rewind_posts();
+}
+}
+
+
