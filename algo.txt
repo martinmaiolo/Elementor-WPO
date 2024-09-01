@@ -28,21 +28,35 @@ https://orbitingweb.com/blog/social-media-metadata-wordpress/
 
 https://orbitingweb.com/blog/tricks-to-speed-up-your-wordpress-blog/
 
-# Finding handle for your plugins
+// Function to display script handles in the admin area
 function display_script_handles() {
+    // Access the global $wp_scripts object
     global $wp_scripts;
-if(current_user_can('manage_options')){ # Only load when user is admin
-foreach( $wp_scripts->queue as $handle ) :
-         $obj = $wp_scripts->registered [$handle];
-         echo $filename = $obj->src;
-echo ' : <b>Handle for this script is:</b> <span style="color:green"> '.$handle.'</span><br/><br/>';
-endforeach;
-}
-}
-add_action( 'wp_print_scripts', 'display_script_handles' );
 
-<link rel="dns-prefetch" href="//miprimerclic.com" data-set-by="SG Optimizer"/>
+    // Only run this code for admin users
+    if (current_user_can('manage_options')) {
 
+        // Check if there are scripts in the queue
+        if (!empty($wp_scripts->queue)) {
+
+            // Iterate through each script in the queue
+            foreach ($wp_scripts->queue as $handle) {
+                // Get the script object
+                $script = $wp_scripts->registered[$handle];
+
+                // Display the script's source URL and handle
+                echo 'Script source: ' . esc_url($script->src) . '<br>';
+                echo '<b>Handle:</b> <span style="color:green">' . esc_html($handle) . '</span><br><br>';
+            }
+        } else {
+            // No scripts are enqueued
+            echo 'No scripts are enqueued.<br>';
+        }
+    }
+}
+
+// Hook the function to the wp_print_scripts action
+add_action('wp_print_scripts', 'display_script_handles');
 
 
 
